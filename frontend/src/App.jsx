@@ -1,10 +1,17 @@
-import CreateStudent from "./components/CreateStudent"
 
+import {Route, BrowserRouter, Routes} from "react-router-dom"
+import GetStudents from "./components/GetStudents"
+import CreateStudent from "./components/CreateStudent"
 
 const App = () => {
   return (
     <>
-        <CreateStudent />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<GetStudents />} />
+            <Route path="/create" element={<CreateStudent />} />
+          </Routes>
+        </BrowserRouter> 
     </>
   )
 }

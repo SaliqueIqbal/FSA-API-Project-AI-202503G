@@ -1,11 +1,11 @@
 import { useState } from "react"
 import axios from './../../node_modules/axios/lib/axios'
+import { useNavigate } from "react-router-dom";
 
 export const CreateStudent = () => {
-
   const [Name,setName] = useState("");
   const [Age,setAge] = useState("");
-
+  const nav = useNavigate();
   const formHandle = (e)=>{
     e.preventDefault();
     const stdObj = {
@@ -18,9 +18,9 @@ export const CreateStudent = () => {
       window.alert('Student Added Successfully')
       setName("")
       setAge("")
+      nav("/")
     });
   }
-
   return (
     <>
         <div className="container my-5">
