@@ -4,6 +4,17 @@ import { Link } from 'react-router-dom';
 
 export const GetStudents = () => {
     const [students,setStudent] = useState([]);
+
+    const deleteOperation = async (id)=>{
+        if(window.confirm('Are you Sure?')){
+            await axios.delete(`http://localhost:3000/api/student/${id}`)
+            .then((res)=>{
+                console.log(res.data)
+                setStudent(students.filter((item)=> item._id !== id));
+            })
+        }
+    }
+
     useEffect(()=>{
         const FetchStudents = async ()=>{
             const stds = await axios.get("http://localhost:3000/api/student")
@@ -13,6 +24,9 @@ export const GetStudents = () => {
         }
         FetchStudents();
     },[])
+
+    
+
   return (
     <>
         <div className="container my-5">
@@ -43,10 +57,12 @@ export const GetStudents = () => {
                             <td>{items.Age}</td>
                             <td>
                                 <div className="d-flex justify-content-evenly">
-                                    <a href="" className="text-primary">
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <a href="" className="text-danger">
+                                    <Link to={`/update/${items._id}`}>
+                                        <a className="text-primary">
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </Link>
+                                    <a onClick={()=>{deleteOperation(items._id)}} className="text-danger">
                                         <i className="fa-solid fa-trash"></i>
                                     </a>
                                 </div>
